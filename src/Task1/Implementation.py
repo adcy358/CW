@@ -21,7 +21,13 @@ class Grid:
                 random_number = rng.random_integers(0,9)
                 grid[i][j] = random_number
 
-        return grid 
+        return grid
+    
+    def convert_to_tuple(self):
+        
+        grid = tuple(map(tuple, self.generate_grid()))
+
+        return grid
 
     def plot(self): 
         
@@ -29,8 +35,8 @@ class Grid:
         
         return(print(grid))
 
-grid = Grid(3,3)
-grid.plot()
 
+grid= Grid(3,3).convert_to_tuple()
+Grid(3,3).plot()
 
 
