@@ -1,3 +1,5 @@
+from tkinter import X
+from turtle import xcor
 from Implementation import Grid
 
 class Shortest_Path(Grid):
@@ -14,9 +16,13 @@ class Shortest_Path(Grid):
         i = 0 
         j = 0 
         timestep = grid[i][j]
+        
+        #keep track of steps
+        steps = []
+        steps.append(grid[i][j])
 
-        i_max = self.width - 1
-        j_max = self.length - 1
+        i_max = self.length - 1
+        j_max = self.width - 1
 
         while i != i_max and j!= j_max:
 
@@ -28,15 +34,33 @@ class Shortest_Path(Grid):
                 new_j = j 
             
             timestep += grid[new_i][new_j]
+            
+            steps.append(grid[new_i][new_j])
 
             i = new_i #update i 
             j = new_j #update j 
 
+            # if they reach a border
+            if i == i_max: 
+                print("i", i)
+                print("j", j)
+
         timestep += grid[i_max][j_max]
+        
+        steps.append(grid[i_max][j_max])     
+        print(steps)
         
         return timestep 
 
 
-game = Shortest_Path(3,3)
+game = Shortest_Path(5,8)
 print(game.heuristic_algorithm())
 game.plot()
+
+
+'''
+TODO: 
+- Fix heuristic_algorithm:
+    when the agent reaches a border it immediately stops the loop 
+
+'''

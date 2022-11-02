@@ -36,7 +36,8 @@ class Grid:
         return(print(grid))
 
 
-grid= Grid(3,3).convert_to_tuple()
-Grid(3,3).plot()
-
-
+'''
+TODO: 
+- Fix generate_grid()
+    It always generates the same grid for values (width, length)
+'''
