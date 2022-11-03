@@ -42,8 +42,14 @@ class Shortest_Path(Grid):
 
             # if they reach a border
             if i == i_max: 
-                print("i", i)
-                print("j", j)
+                for y in range(1,j_max-j):
+                    timestep += grid[i][j+y]
+                    steps.append(grid[i][j+y])
+
+            if j == j_max: 
+                for x in range(1, i_max-i):
+                    timestep += grid[i+x][j]
+                    steps.append(grid[i+x][j])
 
         timestep += grid[i_max][j_max]
         
@@ -53,14 +59,13 @@ class Shortest_Path(Grid):
         return timestep 
 
 
-game = Shortest_Path(5,8)
+game = Shortest_Path(11, 15)
 print(game.heuristic_algorithm())
 game.plot()
 
 
 '''
 TODO: 
-- Fix heuristic_algorithm:
-    when the agent reaches a border it immediately stops the loop 
+
 
 '''
