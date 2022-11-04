@@ -1,6 +1,5 @@
-from tkinter import X
-from turtle import xcor
 from Implementation import Grid
+import random
 
 class Shortest_Path(Grid):
 
@@ -11,7 +10,8 @@ class Shortest_Path(Grid):
     def heuristic_algorithm(self):
 
         # create the grid 
-        grid = self.convert_to_tuple()
+        plot_grid = self.generate_grid(random.randint(0, 1000))
+        grid = tuple(map(tuple, plot_grid))
 
         i = 0 
         j = 0 
@@ -54,18 +54,22 @@ class Shortest_Path(Grid):
         timestep += grid[i_max][j_max]
         
         steps.append(grid[i_max][j_max])     
-        print(steps)
         
-        return timestep 
+        return timestep, plot_grid, steps
 
 
 game = Shortest_Path(11, 15)
-print(game.heuristic_algorithm())
-game.plot()
+timestep, grid, steps  = game.heuristic_algorithm()
+print(grid)
+print(steps)
+print(timestep)
+
 
 
 '''
 TODO: 
+
+- add condition from when two cells are the same
 
 
 '''

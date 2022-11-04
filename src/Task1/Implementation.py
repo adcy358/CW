@@ -18,23 +18,10 @@ class Grid:
 
         for i in range(self.length): 
             for j in range(self.width): 
-                random_number = rng.random_integers(0,9)
+                random_number = rng.randint(0, 9)
                 grid[i][j] = random_number
 
         return grid
-    
-    def convert_to_tuple(self):
-        
-        grid = tuple(map(tuple, self.generate_grid()))
-
-        return grid
-
-    def plot(self): 
-        
-        grid = self.generate_grid()
-        
-        return(print(grid))
-
 
 '''
 TODO: 
