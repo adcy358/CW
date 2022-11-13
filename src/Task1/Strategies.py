@@ -19,7 +19,7 @@ class Shortest_Path(Grid):
         
         #keep track of steps
         shortest_path = []
-        shortest_path.append("node_{}{}".format(i,j))
+        shortest_path.append(f"node_{i}{j}")
 
         i_max = self.length - 1
         j_max = self.width - 1
@@ -35,7 +35,7 @@ class Shortest_Path(Grid):
             
             timestep += grid[new_i][new_j]
             
-            shortest_path.append("node_{}{}".format(new_i, new_j))
+            shortest_path.append(f"node_{new_i}{new_j}")
 
             i = new_i #update i 
             j = new_j #update j 
@@ -44,17 +44,17 @@ class Shortest_Path(Grid):
             if i == i_max: 
                 for y in range(1,j_max-j):
                     timestep += grid[i][j+y]
-                    shortest_path.append("node_{}{}".format(i, j+y))
+                    shortest_path.append(f"node_{i}{j+y}")
 
             if j == j_max: 
                 for x in range(1, i_max-i):
                     timestep += grid[i+x][j]
-                    shortest_path.append("node_{}{}".format(i+x, j))
+                    shortest_path.append(f"node_{i+x}{j}")
                     
 
         #add the values for the last node
         timestep += grid[i_max][j_max]
-        shortest_path.append("node_{}{}".format(i_max, j_max))  
+        shortest_path.append(f"node_{i_max}{j_max}")  
         
         return shortest_path, timestep
 
@@ -74,7 +74,7 @@ class Shortest_Path(Grid):
         
         for i in range(self.length):
             for j in range(self.width):
-                grid_dict["node_{}{}".format(i,j)] = grid_tuple[i][j]
+                grid_dict[f"node_{i}{j}"] = grid_tuple[i][j]
 
         return grid_dict
 
@@ -91,9 +91,9 @@ class Shortest_Path(Grid):
         
         for i in range(self.length-1):
             for j in range(self.width-1):
-                neighbours["node_{}{}".format(i,j)] = {
-                                                "node_{}{}".format(i+1,j) : grid_tuple[i+1][j] ,
-                                                "node_{}{}".format(i,j+1) : grid_tuple[i][j+1]
+                neighbours[f"node_{i}{j}"] = {
+                                                f"node_{i+1}{j}" : grid_tuple[i+1][j] ,
+                                                f"node_{i}{j+1}" : grid_tuple[i][j+1]
                                                     }
         
         
@@ -102,12 +102,12 @@ class Shortest_Path(Grid):
         j_max = self.width-1
     
         for j in range(j_max):
-            neighbours["node_{}{}".format(i_max, j)] = {"node_{}{}".format(i_max, j+1) : grid_tuple[i_max][j+1]}
+            neighbours[f"node_{i_max}{j}"] = {f"node_{i_max}{j+1}" : grid_tuple[i_max][j+1]}
         
         for i in range(i_max):
-            neighbours["node_{}{}".format(i, j_max)] = {"node_{}{}".format(i+1,j_max) : grid_tuple[i+1][j_max]}
+            neighbours[f"node_{i}{j_max}"] = {f"node_{i+1}{j_max}" : grid_tuple[i+1][j_max]}
 
-        neighbours["node_{}{}".format(i_max, j_max)] = {"node_{}{}".format(i_max, j_max) : 0}
+        neighbours[f"node_{i_max}{j_max}"] = {f"node_{i_max}{j_max}" : 0}
         
         return neighbours
 
@@ -155,10 +155,6 @@ class Shortest_Path(Grid):
             # The code block below retrieves the current node's neighbors and updates their distances
             neighbours = self.get_neighbours(plot_grid) 
             current_neighbours = list(neighbours[current_min_node].keys()) # list with names of the current node's neighbours
-            '''
-            for key, value in neighbours.items():
-                print(key, ' : ', value)
-            '''
 
             for neighbour in current_neighbours: 
 
@@ -170,14 +166,12 @@ class Shortest_Path(Grid):
                     # We also update the best path to the current node
                     previous_nodes[neighbour] = current_min_node
 
-                # After visiting its neighbors, we mark the node as "visited"
+            # After visiting its neighbors, we mark the node as "visited"
             unvisited_nodes.remove(current_min_node)
         
         timestep = shortest_path[last_node]
 
         return shortest_path, timestep, previous_nodes
-
-
 
 
 
@@ -189,16 +183,17 @@ print(grid)
 
 #dijkstra's algorithm
 shortest_path, timestep, previous_nodes = game.dijkstra_algorithm(grid)
+print('Shortest path: ')
 print(shortest_path)
-print('----')
+print('')
+print('Previous nodes:')
 print(previous_nodes)
-print('----')
-print('dijkstra: ', timestep)
+print('')
+print('Timestep: ')
+print(timestep)
 
-
-#heuristic algorithm
 '''
-
+#heuristic algorithm
 shortest_path, timestep  = game.heuristic_algorithm(grid)
 print(shortest_path)
 print('heuristic: ', timestep)
@@ -216,5 +211,13 @@ TODO:
 
 - add condition for when two cells are the same
 - transform_grid_into_dict doesn't work for asymmetric grids
+
+'''
+
+'''Notes: 
+
+My Heuristic algorithm has several issues: 
+
+- it doesn't take into account when two neighbour cell have the same value 
 
 '''
