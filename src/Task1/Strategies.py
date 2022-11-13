@@ -18,8 +18,8 @@ class Shortest_Path(Grid):
         timestep = grid[i][j]
         
         #keep track of steps
-        steps = []
-        steps.append(grid[i][j])
+        shortest_path = []
+        shortest_path.append("node_{}{}".format(i,j))
 
         i_max = self.length - 1
         j_max = self.width - 1
@@ -35,7 +35,7 @@ class Shortest_Path(Grid):
             
             timestep += grid[new_i][new_j]
             
-            steps.append(grid[new_i][new_j])
+            shortest_path.append("node_{}{}".format(new_i, new_j))
 
             i = new_i #update i 
             j = new_j #update j 
@@ -44,18 +44,19 @@ class Shortest_Path(Grid):
             if i == i_max: 
                 for y in range(1,j_max-j):
                     timestep += grid[i][j+y]
-                    steps.append(grid[i][j+y])
+                    shortest_path.append("node_{}{}".format(i, j+y))
 
             if j == j_max: 
                 for x in range(1, i_max-i):
                     timestep += grid[i+x][j]
-                    steps.append(grid[i+x][j])
+                    shortest_path.append("node_{}{}".format(i+x, j))
+                    
 
         #add the values for the last node
         timestep += grid[i_max][j_max]
-        steps.append(grid[i_max][j_max])     
+        shortest_path.append("node_{}{}".format(i_max, j_max))  
         
-        return timestep, plot_grid, steps
+        return shortest_path, timestep
 
 
     def transform_grid_into_tuple(self, grid_array):
@@ -171,26 +172,41 @@ class Shortest_Path(Grid):
 
                 # After visiting its neighbors, we mark the node as "visited"
             unvisited_nodes.remove(current_min_node)
+        
+        timestep = shortest_path[last_node]
 
-        return shortest_path, previous_nodes, plot_grid, last_node
+        return shortest_path, timestep, previous_nodes
 
 
 
 
 
-game = Shortest_Path(4, 4)
+game = Shortest_Path(5, 5)
 
 #generate grid
 grid = game.generate_grid(random.randint(0, 1000))
 print(grid)
 
 #dijkstra's algorithm
-shortest_path, previous_node, grid, last_node = game.dijkstra_algorithm(grid)
-print('dijkstra: ', shortest_path[last_node])
+shortest_path, timestep, previous_nodes = game.dijkstra_algorithm(grid)
+print(shortest_path)
+print('----')
+print(previous_nodes)
+print('----')
+print('dijkstra: ', timestep)
+
 
 #heuristic algorithm
-timestep, grid, steps  = game.heuristic_algorithm(grid)
+'''
+
+shortest_path, timestep  = game.heuristic_algorithm(grid)
+print(shortest_path)
 print('heuristic: ', timestep)
+
+'''
+
+
+
 
 
 
