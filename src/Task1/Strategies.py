@@ -9,10 +9,8 @@ class Shortest_Path(Grid):
         super().__init__(length, width)
 
 
-    def heuristic_algorithm(self):
-
-        # create the grid 
-        plot_grid = self.generate_grid(random.randint(0, 1000))
+    def heuristic_algorithm(self, plot_grid):
+        
         grid = self.transform_grid_into_tuple(plot_grid)
 
         i = 0 
@@ -108,13 +106,12 @@ class Shortest_Path(Grid):
         for i in range(i_max):
             neighbours["node_{}{}".format(i, j_max)] = {"node_{}{}".format(i+1,j_max) : grid_tuple[i+1][j_max]}
 
+        neighbours["node_{}{}".format(i_max, j_max)] = {"node_{}{}".format(i_max, j_max) : 0}
+        
         return neighbours
 
 
-    def dijkstra_algorithm(self):
-        # create the grid 
-
-        plot_grid = self.generate_grid(random.randint(0, 1000))
+    def dijkstra_algorithm(self, plot_grid):
 
         grid = self.transform_grid_into_dict(plot_grid)
         #print(grid)
@@ -133,17 +130,17 @@ class Shortest_Path(Grid):
         for node in unvisited_nodes: 
             shortest_path[node] = max_value
         
-        #initialize the starting node's value to zero:
-        shortest_path['node_00'] = 0 
-        #print(shortest_path)
+        #initialize the starting node's value to the corresponding one:
+        shortest_path['node_00'] = grid['node_00']
 
         # The algorithm executes until we visit all nodes
 
     #Until here it works fine
+        last_node = list(grid)[-1]
 
-        while unvisited_nodes: 
+        while last_node in unvisited_nodes: 
             
-            #find the node with the lowest value
+            # This code block finds the node with the lowest value
             current_min_node = None 
 
             for node in unvisited_nodes: 
@@ -153,23 +150,19 @@ class Shortest_Path(Grid):
                 elif shortest_path[node] < shortest_path[current_min_node]: 
                     current_min_node = node
 
-            print("current min node: ", current_min_node)
-            neighbours = self.get_neighbours(plot_grid)
-            
+
+            # The code block below retrieves the current node's neighbors and updates their distances
+            neighbours = self.get_neighbours(plot_grid) 
+            current_neighbours = list(neighbours[current_min_node].keys()) # list with names of the current node's neighbours
             '''
             for key, value in neighbours.items():
                 print(key, ' : ', value)
             '''
 
-            # The code block below retrieves the current node's neighbors and updates their distances
-            
-            current_neighbours = list(neighbours[current_min_node].keys()) # list with names of the current node's neighbours
-            print(current_neighbours)
-
             for neighbour in current_neighbours: 
 
                 tentative_value = shortest_path[current_min_node] + neighbours[current_min_node][neighbour]
-
+                
                 if tentative_value < shortest_path[neighbour]: 
                     shortest_path[neighbour] = tentative_value
 
@@ -179,22 +172,27 @@ class Shortest_Path(Grid):
                 # After visiting its neighbors, we mark the node as "visited"
             unvisited_nodes.remove(current_min_node)
 
-        return previous_nodes, shortest_path, plot_grid
+        return shortest_path, previous_nodes, plot_grid, last_node
 
 
 
 
 
-game = Shortest_Path(3, 3)
-grid = game.dijkstra_algorithm()
+game = Shortest_Path(4, 4)
 
-'''
-timestep, grid, steps  = game.heuristic_algorithm()
+#generate grid
+grid = game.generate_grid(random.randint(0, 1000))
 print(grid)
-print(steps)
-print(timestep)
 
-'''
+#dijkstra's algorithm
+shortest_path, previous_node, grid, last_node = game.dijkstra_algorithm(grid)
+print('dijkstra: ', shortest_path[last_node])
+
+#heuristic algorithm
+timestep, grid, steps  = game.heuristic_algorithm(grid)
+print('heuristic: ', timestep)
+
+
 
 
 '''
