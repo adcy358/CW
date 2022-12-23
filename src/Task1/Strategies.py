@@ -1,4 +1,5 @@
 from Implementation import Grid
+import numpy as np 
 import random
 import sys
 
@@ -77,6 +78,18 @@ class Shortest_Path(Grid):
                 grid_dict[f"node_{i}{j}"] = grid_tuple[i][j]
 
         return grid_dict
+
+
+    def transform_dict_into_grid(self, grid_dict):
+
+        #transform the grid into a dict
+        grid = np.zeros((self.length, self.width))
+
+        for i in range(self.length): 
+            for j in range(self.width): 
+                grid[i][j] = grid_dict[f"node_{i}{j}"]
+
+        return grid
 
 
     def get_neighbours(self, grid_array): 
@@ -171,15 +184,18 @@ class Shortest_Path(Grid):
         
         timestep = shortest_path[last_node]
 
-        return shortest_path, timestep, previous_nodes
+        shortest_path_grid = self.transform_dict_into_grid(shortest_path)
+
+        return shortest_path, timestep, previous_nodes, shortest_path_grid
 
 
-
+'''
 game = Shortest_Path(5, 5)
 
 #generate grid
-grid = game.generate_grid(random.randint(0, 1000))
+grid = game.generate_random_grid(random.randint(0, 1000))
 print(grid)
+
 
 #dijkstra's algorithm
 shortest_path, timestep, previous_nodes = game.dijkstra_algorithm(grid)
@@ -192,18 +208,15 @@ print('')
 print('Timestep: ')
 print(timestep)
 
-'''
+
 #heuristic algorithm
 shortest_path, timestep  = game.heuristic_algorithm(grid)
 print(shortest_path)
 print('heuristic: ', timestep)
 
+
+
 '''
-
-
-
-
-
 
 
 '''
