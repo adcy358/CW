@@ -1,6 +1,6 @@
 from Strategies import *
 
-game = Shortest_Path(5, 5)
+game = Shortest_Path(4, 4)
 
 #generate grid
 grid = game.generate_random_grid(3)

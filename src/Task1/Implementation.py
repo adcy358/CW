@@ -1,5 +1,6 @@
 #Implementation of the game
-import numpy as np 
+import numpy as np   
+
 
 class Grid: 
 
@@ -13,7 +14,7 @@ class Grid:
 
         #we generate n=42 methods for generating random numbers
         rng = np.random.RandomState(seed)
-
+        
         #we create our matrix grid (Length x Width)
         grid = np.zeros((self.length, self.width))
 
@@ -21,7 +22,6 @@ class Grid:
             for j in range(self.width): 
                 random_number = rng.randint(0, 9)
                 grid[i][j] = random_number
-
         return grid
 
     def generate_custom_grid(self, *argv):
@@ -36,3 +36,4 @@ class Grid:
                 index += 1
 
         return grid
+
