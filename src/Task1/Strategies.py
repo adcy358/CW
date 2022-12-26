@@ -61,15 +61,13 @@ class Shortest_Path(Grid):
 
 
     def transform_grid_into_tuple(self, grid_array):
-        
         grid = tuple(map(tuple, grid_array))
-
         return grid
     
     
-    def transform_grid_into_dict(self, grid_array):
-        
-        #transform the grid into a dict
+    def transform_grid_into_dict(self, grid_array):   
+        """ This method transform the grid into a dictionary """
+
         grid_tuple = self.transform_grid_into_tuple(grid_array)
         grid_dict = {}
         
@@ -81,8 +79,8 @@ class Shortest_Path(Grid):
 
 
     def transform_dict_into_grid(self, grid_dict):
+        """ This method transforms the dictionary into a grid for display"""
 
-        #transform the grid into a dict
         grid = np.zeros((self.length, self.width))
 
         for i in range(self.length): 
@@ -92,11 +90,10 @@ class Shortest_Path(Grid):
         return grid
 
 
-    def get_neighbours(self, grid_array): 
-        
-        #transform the grid into a dict where:
-        # - keys: correspond to the nodes
-        # - values: correspond to dict: {adjacent_node: value}
+    def get_neighbours(self, grid_array):    
+        """ Transform the grid into a dict where:
+                - keys: correspond to the nodes
+                - values: correspond to dict: {adjacent_node: value} """
         
         grid_tuple = self.transform_grid_into_tuple(grid_array)
         
@@ -126,6 +123,7 @@ class Shortest_Path(Grid):
 
 
     def dijkstra_algorithm(self, plot_grid):
+        #https://www.udacity.com/blog/2021/10/implementing-dijkstras-algorithm-in-python.html
 
         grid = self.transform_grid_into_dict(plot_grid)
         #print(grid)
@@ -149,7 +147,6 @@ class Shortest_Path(Grid):
 
         # The algorithm executes until we visit all nodes
 
-    #Until here it works fine
         last_node = list(grid)[-1]
 
         while last_node in unvisited_nodes: 

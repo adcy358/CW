@@ -10,7 +10,7 @@ class Grid:
         self.width = width
 
     def generate_random_grid(self, seed=42):
-        # this method generates a random grid of dimensions length x width
+        """ This method generates a random grid of dimensions length x width """
 
         #we generate n=42 methods for generating random numbers
         rng = np.random.RandomState(seed)
@@ -25,7 +25,7 @@ class Grid:
         return grid
 
     def generate_custom_grid(self, *argv):
-        # this method generates a specific grid with predefined values
+        """ This method generates a specific grid with predefined values """
 
         grid = np.zeros((self.length, self.width))
         index = 0 

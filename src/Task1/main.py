@@ -1,9 +1,9 @@
 from Strategies import *
 
-game = Shortest_Path(4, 4)
+game = Shortest_Path(9, 9)
 
 #generate grid
-grid = game.generate_random_grid(3)
+grid = game.generate_random_grid(9)
 print(grid)
 
 
