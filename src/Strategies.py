@@ -4,7 +4,8 @@ import random
 import sys
 
 class Shortest_Path(Grid):
-
+    """ This class contains two methods that find the shortest path 
+        and the helper functions to execute them """
     def __init__(self, length, width): 
         super().__init__(length, width)
 

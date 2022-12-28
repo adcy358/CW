@@ -3,7 +3,7 @@ import numpy as np
 
 
 class Grid: 
-
+    """ This class contains two methods that generate the grid """
     def __init__(self, length, width): 
         self.length = length
         self.width = width
