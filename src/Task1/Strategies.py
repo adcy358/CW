@@ -100,7 +100,7 @@ class Shortest_Path(Grid):
 
     def dijkstra_algorithm(self, plot_grid):
         """ This method implements the Dijkstra Algorithm """
-        #https://www.udacity.com/blog/2021/10/implementing-dijkstras-algorithm-in-python.html
+        # Reference used: https://www.udacity.com/blog/2021/10/implementing-dijkstras-algorithm-in-python.html
         grid = self.transform_grid_into_dict(plot_grid)
 
         unvisited_nodes = list(grid.keys()) #list with names of unvisited nodes
