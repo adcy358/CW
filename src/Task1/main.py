@@ -1,25 +1,37 @@
 from Strategies import *
 
-game = Shortest_Path(9, 9)
+game = Shortest_Path(3, 3)
+seed = 9 
 
-#generate grid
-grid = game.generate_random_grid(9)
+# Generate grid
+grid = game.generate_random_grid(seed)
+print("-------------------------------")
+print('GRID')
+print("-------------------------------")
+print('Grid: ')
 print(grid)
+print("-------------------------------")
 
-
-#dijkstra's algorithm
+# Dijkstra's algorithm
 shortest_path, timestep, previous_nodes, shortest_path_grid = game.dijkstra_algorithm(grid)
+print("DIJKSTRA'S ALGORITHM")
+print("-------------------------------")
 print('Shortest path: ')
 print(shortest_path)
 print('')
 print('Previous nodes:')
 print(previous_nodes)
 print('')
-print('Timestep: ')
+print('Timesteps: ')
 print(timestep)
+print("-------------------------------")
 
-
-#heuristic algorithm
+# Heuristic algorithm
 shortest_path, timestep  = game.heuristic_algorithm(grid)
+print("HEURISTIC ALGORITHM")
+print("-------------------------------")
+print('Shortest path: ')
 print(shortest_path)
-print('heuristic: ', timestep)
+print('')
+print('Timesteps: ', timestep)
+print("-------------------------------")
